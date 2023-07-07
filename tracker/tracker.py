@@ -7,7 +7,10 @@ from PIL import Image
 from websockets.sync.client import ClientConnection, connect
 
 ESPS =[
-    "192.168.178.242"
+    "192.168.178.184",
+    "192.168.178.185",
+    "192.168.178.186",
+
 ]
 
 logo = """
@@ -26,7 +29,15 @@ def clear_print_logo():
 clear_print_logo()
 img = Image.open("fomo.png")
 
-WSC: list[ClientConnection] = [connect(f"ws://{esp}/ws") for esp in ESPS]
+WSC = []
+for esp in ESPS:
+    try:
+        ws_connection = connect(f"ws://{esp}/ws", open_timeout=1)
+    except Exception:
+        print(f"{esp}")
+
+    WSC.append(ws_connection)
+
 x = 150
 with alive_bar(x, title="Verbinden met tijd machines") as bar:
     [ws.send("CON&1000") for ws in WSC]
