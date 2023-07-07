@@ -15,10 +15,16 @@
 #include "LittleFS.h"
 #include <AccelStepper.h>
 
-#define IN1 D7
-#define IN2 D6
-#define IN3 D5
-#define IN4 D0
+#define IN1 D0
+#define IN2 D5
+#define IN3 D6
+#define IN4 D7
+
+// #define IN1 D1
+// #define IN2 D2
+// #define IN3 D3
+// #define IN4 D4
+
 AccelStepper stepper(AccelStepper::HALF4WIRE, IN1, IN3, IN2, IN4);
 
 String message = "";
@@ -26,6 +32,12 @@ String message = "";
 // Replace with your network credentials
 const char *ssid = "Ik heb geen wifi";
 const char *password = "ikhebG1idee";
+
+// 184, 185, 186
+IPAddress local_IP(192, 168, 178, 186);
+IPAddress gateway(192, 168, 178, 1);
+
+IPAddress subnet(255, 255, 255, 0);
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -56,6 +68,10 @@ void initFS()
 // Initialize WiFi
 void initWiFi()
 {
+  if (!WiFi.config(local_IP, gateway, subnet))
+  {
+    Serial.println("STA Failed to configure");
+  }
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi ..");
