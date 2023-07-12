@@ -16,9 +16,9 @@
 #include <AccelStepper.h>
 
 #define IN1 D0
-#define IN2 D5
-#define IN3 D6
-#define IN4 D7
+#define IN2 D1
+#define IN3 D2
+#define IN4 D3
 
 // #define IN1 D1
 // #define IN2 D2
@@ -33,8 +33,8 @@ String message = "";
 const char *ssid = "Ik heb geen wifi";
 const char *password = "ikhebG1idee";
 
-// 184, 185, 186
-IPAddress local_IP(192, 168, 178, 186);
+// 184, 185, 186, 187
+IPAddress local_IP(192, 168, 178, 187);
 IPAddress gateway(192, 168, 178, 1);
 
 IPAddress subnet(255, 255, 255, 0);
